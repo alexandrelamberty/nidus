@@ -28,7 +28,9 @@ client to interact with the API.
 
 ### Client
 
-NGINX Web server
+NGINX Web server with a React application
+
+See [Nidus Client](https://github.com/alexandrelamberty/nidus/client/)
 
 > Use Curl  
 
@@ -37,17 +39,20 @@ NGINX Web server
 The server application consist of 4 containerized services running on a
 dedicated micro-computer.
 
+See [Nidus Server](https://github.com/alexandrelamberty/nidus/server/)
+
 - Web server - NGINX
 - API - Golang & Fiber
-  It uses Golang for the server language with the Fiber framework.
 - Database - Mongo
-  The storage is made through a Mongo database.
 - Cache - Redis
-  The caching of data is done with Redis
 
 ### Embedded systems
 
-They run a web server that expose an API to interact with them.
-See `Sentinel System Documentation` 
+They are based on `Sentinel` and they run a web server that expose an API to
+interact with them.
+
+See [Sentinel](https://github.com/alexandrelamberty/sentinel/)
 
 ## References
+
+> TO IMPLEMENT
