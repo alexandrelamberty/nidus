@@ -14,11 +14,10 @@ services:
     command: [nginx, "-g", "daemon off;"]
   api:
     image: alexandrelamberty/nidus-api:latest
-    container_name: nidus-api
-    env_file:
-      - .env
+    environment:
+      - DATABASE_URI=${API_DATABASE_URI}
     ports:
-      - 3333:${API_PORT}
+      - 3333
     depends_on:
       - database
   web:
