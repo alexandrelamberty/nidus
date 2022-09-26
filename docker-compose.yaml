@@ -32,7 +32,7 @@ services:
     depends_on:
       - api
   database:
-    image: mongo:4.4.8 # < 5 for AVX CPU support (Elitebook 254Op)
+    image: mongo:5.0.0 # < 5 for AVX CPU support (Elitebook 254Op)
     container_name: nidus-database
     environment:
       - MONGO_INITDB_ROOT_USERNAME=${DATABASE_ROOT_USER}
