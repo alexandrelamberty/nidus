@@ -36,7 +36,8 @@ client/server architecture with multiple autonomous wireless devices
 - [Docker]()
 
 ## Usage
-his application rely on some environments variables;
+
+This application rely on some environments variables;
 
 ```properties
 # database and mongo-express
@@ -64,8 +65,8 @@ REACT_APP_API_URL=http://localhost:3333
 
 ### Run with Docker
 
-Create a file name `.env ` and add the following and use Docker compose to build
-and start the stack.
+Create a file name `.env ` and add the environment variables, then use Docker
+compose to build and start the stack.
 
 ```bash
 docker compose up --env-file .env up -d
