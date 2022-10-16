@@ -2,16 +2,17 @@
 
 Nidus is a small experimental centralized home monitoring system that follow a
 client/server architecture with multiple autonomous wireless devices
-(micro-controllers).
+(micro-controllers). 
 
 ## Features
 
-- [ ] Web GUI interface
-- [ ] Dashboard
-- [ ] Manage devices (Sentinel)
+- [x] Web GUI interface
+  - [x] Dashboard
+  - [x] Manage devices (Sentinel)
 - [ ] Monitor:
   - [ ] Humidity
-  - [ ] Temperature
+  - [x] Temperature
+  - [x] Pressure
   - [ ] Movement
   - [ ] Light
   - [ ] Gate
@@ -23,21 +24,42 @@ client/server architecture with multiple autonomous wireless devices
 
 ## Architecture
 
+The application run on a Raspberry Pi 4 and is completly containerized with Docker.
 
 ## Components
 
-- [Nidus API Specification](https://github.com/alexandrelamberty/nidus-api-spec)
-- [Nidus API](https://github.com/alexandrelamberty/nidus-api/)
-- [Nidus Web Application](https://github.com/alexandrelamberty/nidus-web-app/)
-- [Sentinel](https://github.com/alexandrelamberty/sentinel/)
+- OpenAPI specification 
+
+  <https://github.com/alexandrelamberty/nidus-api-spec>
+
+- API implementation in GO with Fiber
+
+  <https://github.com/alexandrelamberty/nidus-api/>
+
+- Web application in React
+
+  (https://github.com/alexandrelamberty/nidus-web-app/)
+
+- Micro-controller software in C with Arduino
+
+  <https://github.com/alexandrelamberty/sentinel/>
+
+- Custom Debian Lite image for the Raspberry Pi server
+
+  <https://github.com/alexandrelamberty/sentinel/>
+
+- Raspberry Pi management with Ansible
+
+  <https://github.com/alexandrelamberty/sentinel/>
+
 
 ## Requirements
 
-- [Docker]()
+- [Docker](https://www.docker.com/)
 
 ## Usage
 
-This application rely on some environments variables;
+This application rely on some environment variables;
 
 ```properties
 # database and mongo-express
@@ -74,8 +96,8 @@ docker compose up --env-file .env up -d
 
 ### Run with Portainer
 
-- Create Stack from this Git repository
-- Add the environment variable
+- Create the stack from this Git repository
+- Add the environment variables
 
 ### Launching
 
