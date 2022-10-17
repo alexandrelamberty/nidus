@@ -1,8 +1,7 @@
 # Nidus
 
 Nidus is a small experimental centralized home monitoring system that follow a
-client/server architecture with multiple autonomous wireless devices
-(micro-controllers). 
+client/server architecture with multiple autonomous wireless micro-controllers. 
 
 ## Features
 
@@ -21,41 +20,84 @@ client/server architecture with multiple autonomous wireless devices
   - [ ] Lights
   - [ ] Video camera
 - [ ] Alerts & Notifications
+- [ ] Security
+  - [ ] HTTPS
+- [ ] Dabase backup
+- [ ] Kubernetes
 
 ## Architecture
 
-The application run on a Raspberry Pi 4 and is completly containerized with Docker.
+The application run as a Docker stack with Portainer on a Raspberry Pi 4,
+running a custom Raspios Lite image and managed with Ansible. See: `docker-compose.yaml`
+
+![Nidus architecture](nidus-architecture.png)
 
 ## Components
 
-- OpenAPI specification 
+### Application
+
+- Nidus API Specification
+ 
+  Web API specification with `OpenAPI`
 
   <https://github.com/alexandrelamberty/nidus-api-spec>
 
-- API implementation in GO with Fiber
+- Nidus API
+  
+  API implementation in `Go` with `Fiber`
 
   <https://github.com/alexandrelamberty/nidus-api/>
 
-- Web application in React
+- Nidus Web App
+  
+  Web application in `React`
 
-  (https://github.com/alexandrelamberty/nidus-web-app/)
+  <https://github.com/alexandrelamberty/nidus-web-app/>
 
-- Micro-controller software in C with Arduino
 
-  <https://github.com/alexandrelamberty/sentinel/>
+### Micro-controller 
+  
+  NodeMCU Lua Amica Module V2 ESP8266 ESP-12FCP2102, BMP180 and DS18B20.
 
-- Custom Debian Lite image for the Raspberry Pi server
+  ![Nidus architecture](micro-controller-sensor.jpg)
 
-  <https://github.com/alexandrelamberty/sentinel/>
+- Sentinel API Specification
+  
+  Micro-controller API specification with OpenAPI
 
-- Raspberry Pi management with Ansible
+  <https://github.com/alexandrelamberty/sentinel-api-spec/>
 
-  <https://github.com/alexandrelamberty/sentinel/>
+- Sentinel ESP8266
 
+  Micro-controller software in `C` with `Arduino`
+  
+  <https://github.com/alexandrelamberty/sentinel-esp8266/>
+
+
+### Server
+
+Raspberry Pi 4 Modèle B 4 Go ARM-Cortex-A72
+
+![Nidus architecture](raspberry-pi-4.jpg)
+
+- Xraspios
+
+  `Raspios Lite Armh` custom image made with `Packer` 
+  
+  <https://github.com/alexandrelamberty/xraspios/>
+
+
+- Xraspios IaC
+
+  Server management with `Ansible`
+
+  <https://github.com/alexandrelamberty/xraspios-iac/>
 
 ## Requirements
 
+- [Ansible](https://www.docker.com/)
 - [Docker](https://www.docker.com/)
+- [Portainer](https://www.portainer.io/)
 
 ## Usage
 
@@ -79,10 +121,9 @@ API_BCRYPT_HASH=7f91317e30a02bc7b87205e95b842df2
 API_DATABASE_URI=mongodb://nidus:nidus@database:27017/nidus
 # web
 WEB_IMAGE_VERSION=dev
-REACT_APP_ENV=dev
-REACT_APP_CLIENT_ID=jfjffffaddfeettgydgdffv
-REACT_APP_KEY=aaddddawrfffvvvvssaa
-REACT_APP_API_URL=http://localhost:3333
+WEB_ENV=dev
+WEB_APP_KEY=aaddddawrfffvvvvssaa
+WEB_APP_API_URL=http://api.nidus.lan
 ```
 
 ### Run with Docker
@@ -102,8 +143,5 @@ docker compose up --env-file .env up -d
 ### Launching
 
 The web app is accessible at <http://nidus.lan> and the API at
-<http://api.nidus.lan>
+<http://api.nidus.lan>.
 
-## References
-
-- <https://www.mongodb.com/docs/manual/core/timeseries-collections/>
