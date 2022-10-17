@@ -99,3 +99,27 @@ db.capabilities.insertMany([
     kind: "motion",
   },
 ]);
+
+db.createCollection("readings.humidity", {
+  timeseries: {
+    timeField: "timestamp",
+    metaField: "metadata",
+    granularity: "minutes",
+  },
+});
+
+db.createCollection("readings.temperature", {
+  timeseries: {
+    timeField: "timestamp",
+    metaField: "metadata",
+    granularity: "minutes",
+  },
+});
+
+db.createCollection("readings.pressure", {
+  timeseries: {
+    timeField: "timestamp",
+    metaField: "metadata",
+    granularity: "minutes",
+  },
+});
