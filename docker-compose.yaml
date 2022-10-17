@@ -1,4 +1,5 @@
 version: "3.8"
+name: "Nidus"
 services:
   proxy:
     image: nginx
@@ -12,25 +13,24 @@ services:
       - 80:80
     command: [nginx, "-g", "daemon off;"]
   api:
-    image: alexandrelamberty/nidus-api:latest
-    container_name: nidus-api
-    env_file:
-      - .env
+    image: alexandrelamberty/nidus-api:${API_IMAGE_VERSION}
+    environment:
+      - DATABASE_URI=${API_DATABASE_URI}
     ports:
-      - 3333:${API_PORT}
+      - 3333
     depends_on:
       - database
   web:
-    image: alexandrelamberty/nidus-web:latest
-    container_name: nidus-web
-    env_file:
-      - .env
+    image: alexandrelamberty/nidus-web:${WEB_IMAGE_VERSION}
+    environment:
+      - REACT_APP_ENV=${REACT_APP_ENV}
+      - REACT_APP_API_URL=${REACT_APP_API_URL}
     ports:
-      - 3000:${WEB_APP_PORT}
+      - 3000
     depends_on:
       - api
   database:
-    image: mongo:4.4.8 # < 5 for AVX CPU support (Elitebook 254Op)
+    image: mongo:5.0.0 # < 5 for AVX CPU support (Elitebook 254Op)
     container_name: nidus-database
     environment:
       - MONGO_INITDB_ROOT_USERNAME=${DATABASE_ROOT_USER}
