@@ -1,71 +1,68 @@
 # Nidus
 
-Nidus is a small experimental centralized home monitoring system that follow a
-client/server architecture with multiple autonomous wireless micro-controllers. 
+Nidus is a small experimental home monitoring system.
 
 ## Features
 
-- [x] Web GUI interface
-  - [x] Dashboard
-  - [x] Manage devices (Sentinel)
+- [x] Dashboard with widgets that show an overview of your monitoring data.
+- [x] Manage micro-controller devices (Sentinel)
 - [ ] Monitor:
   - [ ] Humidity
   - [x] Temperature
   - [x] Pressure
-  - [ ] Movement
   - [ ] Light
   - [ ] Gate
+  - [ ] Movement
+  - [ ] Video
 - [ ] Control:
   - [ ] Monitoring sensors
-  - [ ] Lights
-  - [ ] Video camera
+  - [ ] Relay
 - [ ] Alerts & Notifications
-- [ ] Security
-  - [ ] HTTPS
-- [ ] Dabase backup
-- [ ] Kubernetes
 
-## Architecture
+## Architecture / Infrastructure
 
-The application run as a Docker stack with Portainer on a Raspberry Pi 4,
-running a custom Raspios Lite image and managed with Ansible. See: `docker-compose.yaml`
+The system follow a client/server architecture with multiple autonomous [ESP82666](https://components101.com/development-boards/nodemcu-esp8266-pinout-features-and-datasheet)
+wireless micro-controllers. It run as a [Docker](https://www.docker.com/) stack with
+[Portainer](https://www.portainer.io/) on a
+[Raspberry Pi4](https://www.raspberrypi.com/products/raspberry-pi-4-model-b/).
 
 ![Nidus architecture](nidus-architecture.png)
+
+## API Specifications
+
+- Nidus API Specification
+
+  Web API specification following the [OpenAPI](https://www.openapis.org/) standard.
+
+  <https://github.com/alexandrelamberty/nidus-api-spec>
+
+- Sentinel API Specification
+  
+  Micro-controller API specification with `OpenAP`
+
+  <https://github.com/alexandrelamberty/sentinel-api-spec/>
 
 ## Components
 
 ### Application
 
-- Nidus API Specification
- 
-  Web API specification with `OpenAPI`
-
-  <https://github.com/alexandrelamberty/nidus-api-spec>
-
 - Nidus API
   
-  API implementation in `Go` with `Fiber`
+  API implementation in [Go](https://go.dev/) with [Fiber](https://gofiber.io/)
 
   <https://github.com/alexandrelamberty/nidus-api/>
 
 - Nidus Web App
   
-  Web application in `React`
+  Web application in [Typescript](https://www.typescriptlang.org/) with [React](https://reactjs.org/)
 
   <https://github.com/alexandrelamberty/nidus-web-app/>
 
-
-### Micro-controller 
+### Micro-controller
   
   NodeMCU Lua Amica Module V2 ESP8266 ESP-12FCP2102, BMP180 and DS18B20.
 
   ![Nidus architecture](micro-controller-sensor.jpg)
-
-- Sentinel API Specification
-  
-  Micro-controller API specification with OpenAPI
-
-  <https://github.com/alexandrelamberty/sentinel-api-spec/>
 
 - Sentinel ESP8266
 
@@ -73,19 +70,17 @@ running a custom Raspios Lite image and managed with Ansible. See: `docker-compo
   
   <https://github.com/alexandrelamberty/sentinel-esp8266/>
 
-
 ### Server
 
 Raspberry Pi 4 Modèle B 4 Go ARM-Cortex-A72
 
-![Nidus architecture](raspberry-pi-4.jpg)
+![Raspberry Pi 4 Modèle B 4 Go ARM-Cortex-A72](raspberry-pi-4.jpg)
 
 - Xraspios
 
-  `Raspios Lite Armh` custom image made with `Packer` 
+  `Raspios Lite Armh` custom image made with `Packer`
   
   <https://github.com/alexandrelamberty/xraspios/>
-
 
 - Xraspios IaC
 
@@ -95,13 +90,11 @@ Raspberry Pi 4 Modèle B 4 Go ARM-Cortex-A72
 
 ## Requirements
 
-- [Ansible](https://www.docker.com/)
 - [Docker](https://www.docker.com/)
-- [Portainer](https://www.portainer.io/)
 
 ## Usage
 
-This application rely on some environment variables;
+This application rely on some environment variables:
 
 ```properties
 # database and mongo-express
@@ -128,11 +121,11 @@ WEB_APP_API_URL=http://api.nidus.lan
 
 ### Run with Docker
 
-Create a file name `.env ` and add the environment variables, then use Docker
-compose to build and start the stack.
+Create a file name `.env` and add the environment variables, then use Docker
+compose to build and start the stack in detached mode.
 
 ```bash
-docker compose up --env-file .env up -d
+docker compose --env-file .env up -d
 ```
 
 ### Run with Portainer
@@ -144,4 +137,3 @@ docker compose up --env-file .env up -d
 
 The web app is accessible at <http://nidus.lan> and the API at
 <http://api.nidus.lan>.
-
