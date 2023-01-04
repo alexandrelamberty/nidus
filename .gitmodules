@@ -1,0 +1,6 @@
+[submodule "nidus-web-app"]
+	path = nidus-web-app
+	url = git@github.com:alexandrelamberty/nidus-web-app.git
+[submodule "nidus-api"]
+	path = nidus-api
+	url = https://github.com/alexandrelamberty/nidus-api
