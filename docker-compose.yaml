@@ -20,6 +20,17 @@ services:
       - 3333
     depends_on:
       - database
+  messaging:
+    image: alexandrelamberty/nidus-messaging:${API_IMAGE_TAG}
+    environment:
+      - MQTT_SERVER=${MQTT_SERVER}
+      - MQTT_CLIENT_ID=${MQTT_CLIENT}
+      - MQTT_USERNAME=${MQTT_USERNAME}
+      - MQTT_PASSWORD=${MQTT_PASSWORD}
+    ports:
+      - 3333
+    depends_on:
+      - broker
   web:
     image: alexandrelamberty/nidus-web:${WEB_IMAGE_TAG}
     environment:
@@ -47,6 +58,12 @@ services:
       - database_config:/data/configdb
       - ./mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js
     restart: always
+  broker:
+    image: emqx/emqx:latest
+    restart: always
+    environment:
+      EMQX_NAME: foo_emqx
+      EMQX_HOST: 127.0.0.1
   mongo-express:
     image: mongo-express
     container_name: nidus-mongo-express
