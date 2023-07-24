@@ -19,75 +19,24 @@ Nidus is a small experimental home monitoring system.
   - [ ] Relay
 - [ ] Alerts & Notifications
 
+## How to project is structured
+
+- [Nidus](https://github.com/open-nidus/nidus) is the main project that contains all the others one as submodules. This project use Docker to create a stack with all the services needed. The fact that I have all the others project as submodules is remainder of when I had this project on my personal repositories. Now the submodules have no interest.
+
+- [Nidus API Spec](https://github.com/open-nidus/nidus-api-spec) is the API specification used in the project. It is based on the OpenAPI specification and written in yaml.
+
+- [Nidus API](https://github.com/open-nidus/nidus-api) sever application using Fiber and exposing an API through HTTP.
+
+- [Nidus Web App](https://github.com/open-nidus/nidus-web-app) client application using React and consuming the API.
+
+- [Sentinel OS](https://github.com/open-nidus/sentinel-os) system running on the micro-controllers, NodeMCU ESP8266 ESP-12F.
+
 ## Architecture / Infrastructure
 
-The system follow a client/server architecture with multiple autonomous [ESP82666](https://components101.com/development-boards/nodemcu-esp8266-pinout-features-and-datasheet)
-wireless micro-controllers. It run as a [Docker](https://www.docker.com/) stack with
-[Portainer](https://www.portainer.io/) on a
-[Raspberry Pi4](https://www.raspberrypi.com/products/raspberry-pi-4-model-b/).
+The system follow a client/server architecture with multiple autonomous [ESP82666](https://components101.com/development-boards/nodemcu-esp8266-pinout-features-and-datasheet) wireless micro-controllers. It run as a [Docker](https://www.docker.com/) stack with [Portainer](https://www.portainer.io/) on a [Raspberry Pi4](https://www.raspberrypi.com/products/raspberry-pi-4-model-b/).
 
 ![Nidus architecture](nidus-architecture.png)
-
-## API Specifications
-
-- Nidus API Specification
-
-  Web API specification following the [OpenAPI](https://www.openapis.org/) standard.
-
-  <https://github.com/alexandrelamberty/nidus-api-spec>
-
-- Sentinel API Specification
   
-  Micro-controller API specification with `OpenAP`
-
-  <https://github.com/alexandrelamberty/sentinel-api-spec/>
-
-## Components
-
-### Application
-
-- Nidus API
-  
-  API implementation in [Go](https://go.dev/) with [Fiber](https://gofiber.io/)
-
-  <https://github.com/alexandrelamberty/nidus-api/>
-
-- Nidus Web App
-  
-  Web application in [Typescript](https://www.typescriptlang.org/) with [React](https://reactjs.org/)
-
-  <https://github.com/alexandrelamberty/nidus-web-app/>
-
-### Micro-controller
-  
-  NodeMCU Lua Amica Module V2 ESP8266 ESP-12FCP2102, BMP180 and DS18B20.
-
-  ![Nidus architecture](micro-controller-sensor.jpg)
-
-- Sentinel ESP8266
-
-  Micro-controller software in `C` with `Arduino`
-  
-  <https://github.com/alexandrelamberty/sentinel-esp8266/>
-
-### Server
-
-Raspberry Pi 4 Modèle B 4 Go ARM-Cortex-A72
-
-![Raspberry Pi 4 Modèle B 4 Go ARM-Cortex-A72](raspberry-pi-4.jpg)
-
-- Xraspios
-
-  `Raspios Lite Armh` custom image made with `Packer`
-  
-  <https://github.com/alexandrelamberty/xraspios/>
-
-- Xraspios IaC
-
-  Server management with `Ansible`
-
-  <https://github.com/alexandrelamberty/xraspios-iac/>
-
 ## Requirements
 
 - [Docker](https://www.docker.com/)
@@ -117,6 +66,11 @@ WEB_IMAGE_VERSION=dev
 WEB_ENV=dev
 WEB_APP_KEY=aaddddawrfffvvvvssaa
 WEB_APP_API_URL=http://api.nidus.lan
+# MQTT
+MQTT_SERVER=localhost
+MQTT_CLIENT_ID=nidus-messaging
+MQTT_USERNAME=none
+MQTT_PASSWORD=none
 ```
 
 ### Run with Docker
